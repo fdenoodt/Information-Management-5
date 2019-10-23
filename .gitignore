@@ -1,3 +1,5 @@
 
 .vscode/settings.json
 secret_keys.py
+__pycache__/t.cpython-37.pyc
+__pycache__/secret_keys.cpython-37.pyc
