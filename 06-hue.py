@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from secret_keys import HUE_EMULATOR_URL
 
 def huelight(on,color,id):
     if(color == 'green'):
@@ -13,7 +14,7 @@ def huelight(on,color,id):
         sat = '254'
         hue = '10'
 
-    url = 'http://10.102.35.2/api/yE3bapBpDpSkR3AGfE4LZKpdxGcKahSjC9m7lETH/lights/'+id+'/state'
+    url = HUE_EMULATOR_URL +id+'/state'
     data = '{ "on": '+on+',"sat":'+sat+', "bri":100,"hue":'+hue+'}'
     headers = {"Content-Type": "application/json"}
 
@@ -45,7 +46,7 @@ def switch(state):
 
 from datetime import datetime
 
-def get(url = 'http://10.102.35.2/api/yE3bapBpDpSkR3AGfE4LZKpdxGcKahSjC9m7lETH/lights/'):
+def get(url = HUE_EMULATOR_URL):
     headers = {"Content-Type": "application/json"}
     response = requests.get(url, headers=headers)
     res = response.json()
