@@ -14,7 +14,7 @@ def huelight(on,color,id):
         sat = '254'
         hue = '10'
 
-    url = 'http://10.102.35.2/api/yE3bapBpDpSkR3AGfE4LZKpdxGcKahSjC9m7lETH/lights/'+id+'/state'
+    url = 'http://localhost:8000/api/newdeveloper/lights/'+id+'/state'
     data = '{ "on": '+on+',"sat":'+sat+', "bri":100,"hue":'+hue+'}'
     headers = {"Content-Type": "application/json"}
 

@@ -3,3 +3,8 @@
 secret_keys.py
 __pycache__/t.cpython-37.pyc
 __pycache__/secret_keys.cpython-37.pyc
+07_NMBS/with vias.json
+07_NMBS/no vias.json
+07_NMBS/__pycache__/api.cpython-37.pyc
+07_NMBS/__pycache__/hue.cpython-37.pyc
+07_NMBS/__pycache__/trains.cpython-37.pyc
