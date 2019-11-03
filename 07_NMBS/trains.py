@@ -46,6 +46,9 @@ class TrainApi:
         delay = vehiculeinfo['stops']['stop'][stopid]['delay']
         return delay
 
+    def validate_vias(self, vias, last_time):
+        print('todo')
+
     def verify_delay(self, selected_connection, max_delay=15):
         arrival_vehicle_id = selected_connection['arrival']['vehicle']
         arrival_station = selected_connection['arrival']['station']
@@ -53,13 +56,15 @@ class TrainApi:
         delay_of_arrival = self.return_delay(
             arrival_vehicle_id, self.date, arrival_station)
 
-        if 'vias' in selected_connection:
-            vias = selected_connection['vias']
-            print('there are vias lol')
+        # if 'vias' in selected_connection:
+        #     vias = selected_connection['vias']
+        #     for via in vias:
+        #         if(via["timeBetween"] < via["delay"])
+        #     print('there are vias lol')
 
         if int(delay_of_arrival) > int(max_delay):
             # Search other route
             return False
 
-        print("delay is on time: " + delay_of_arrival)
+        print("Delay is on fine: " + delay_of_arrival)
         return True

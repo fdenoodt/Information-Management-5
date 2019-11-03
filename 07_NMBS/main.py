@@ -56,31 +56,18 @@ selected_connection = connections[originalid]
 print(selected_connection)
 
 # 4
-while selected_connection['departure']['time'] <= datetime.datetime.now():
+while selected_connection['departure']['time'] >= datetime.datetime.now():
     is_on_time = train_api.verify_delay(selected_connection, date)
 
     if is_on_time == False:
         # Pick new connection
         connections = train_api.getConnections(
             starting_location, end_location, date, arrival_time)
-        
+
         print("connection has changed to something different")
         selected_connection = connections[0]
 
     time.sleep(30)
-
-
-# trains = []
-
-# trains.append(selected_connection['arrival'])
-
-# if 'vias' in selected_connection:
-#     trains.append(selected_connection['vias'])
-
-
-# for train in trains:
-#     print(train)
-
 
 '''
 1. ask for starting location, end location, expected arrival
