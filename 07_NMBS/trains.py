@@ -1,6 +1,7 @@
 from api import Api
 from datetime import datetime
 
+
 class TrainApi:
     def __init__(self):
         self.api = Api()
@@ -16,6 +17,7 @@ class TrainApi:
         url = self.base_url + "connections/?from=" + starting_location + "&to="+end_location + \
             "&date=" + date + "&time="+arrival_time + \
             "&timesel=arrival&format=json&lang=en&fast=false&typeOfTransport=trains&alerts=false&results=6"
+
         connections = self.api.get(url)["connection"]
 
         returing_connections = []
@@ -24,3 +26,12 @@ class TrainApi:
 
        
         return returing_connections
+
+    def returnDelay(self,trainid,date,station):
+      url = self.base_url + "vehicle/?id="+ trainid +'&date='+date+'&format=json'
+      vehiculeinfo = self.api.get(url)
+      stopid = 0
+      while vehiculeinfo['stops']['stop'][stopid]['station'] != station:
+        stopid += 1
+      delay = vehiculeinfo['stops']['stop'][stopid]['delay']
+      return delay
