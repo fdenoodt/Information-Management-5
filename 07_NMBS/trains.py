@@ -10,6 +10,12 @@ class TrainApi:
         end_location = None
         arrival_time = None
 
+    def datetime_plus_seconds(self, time, seconds):
+        return time + timedelta(0, int(seconds))
+
+    def unix_to_datetime(self, time):
+        return datetime.fromtimestamp(int(time))
+
     def convert_timestamps(self, connection):
         connection['departure']['time'] = datetime.fromtimestamp(
             int(connection['departure']['time']))
@@ -45,14 +51,15 @@ class TrainApi:
 
         return returing_connections
 
-    def return_delay(self, trainid, date, station):
+    def return_stop(self, trainid, date, station):
         url = self.base_url + "vehicle/?id=" + trainid + '&date='+date+'&format=json'
         vehiculeinfo = self.api.get(url)
         stopid = 0
         while vehiculeinfo['stops']['stop'][stopid]['station'] != station:
             stopid += 1
-        delay = vehiculeinfo['stops']['stop'][stopid]['delay']
-        return delay
+        stop = vehiculeinfo['stops']['stop'][stopid]
+        # delay = stop['arrivalDelay']
+        return stop
 
     def validate_vias(self, selected_connection):
         # per via: arrival time + delay < departure + delay --> goed, else false
@@ -63,12 +70,11 @@ class TrainApi:
                 arrival_time = via['arrival']['time']
                 arr_seconds_delay = via['arrival']['delay']
 
-                departure_time = via['arrival']['time']
-                dep_seconds_delay = via['arrival']['delay']
+                departure_time = via['departure']['time']
+                dep_seconds_delay = via['departure']['delay']
 
                 arrival_time = arrival_time + \
                     timedelta(0, int(arr_seconds_delay))  # 0 days, x seconds
-
                 departure_time = departure_time + \
                     timedelta(0, int(dep_seconds_delay))
 
@@ -80,20 +86,29 @@ class TrainApi:
 
         return True
 
-    def verify_delay(self, selected_connection, max_delay=15):
-        print("LALALALAL")
+    def verify_delay(self, selected_connection, max_possible_arrival_time_to_arrive_on_time):
         arrival_vehicle_id = selected_connection['arrival']['vehicle']
         arrival_station = selected_connection['arrival']['station']
 
-        delay_of_arrival = self.return_delay(
+        arrival_stop = self.return_stop(
             arrival_vehicle_id, self.date, arrival_station)
 
+        expected_time_of_arrival = self.unix_to_datetime(
+            arrival_stop['scheduledArrivalTime'])
+
+        delay_of_arrival = arrival_stop['arrivalDelay']
+
+        arrival_time = self.datetime_plus_seconds(
+            expected_time_of_arrival, delay_of_arrival)
+
+        # Verify Via's
         if self.validate_vias(selected_connection) == False:
             return False
 
-        if int(delay_of_arrival) > int(max_delay):  # evaluated in seconds
-            # Search other route
+        # Verify arrival
+        # bv komt aan om 14, en wilt aankomen om 13
+        if(arrival_time > max_possible_arrival_time_to_arrive_on_time):
             return False
 
-        print("Delay is on fine: " + delay_of_arrival)
+        print("Delay is fine: " + str(int(delay_of_arrival)/60) + " minutes.")
         return True

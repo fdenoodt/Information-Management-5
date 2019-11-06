@@ -1,0 +1,198 @@
+{
+  "id": "0",
+  "departure": {
+    "delay": "60",
+    "station": "Ghent-Sint-Pieters",
+    "stationinfo": {
+      "locationX": "3.710675",
+      "locationY": "51.035896",
+      "id": "BE.NMBS.008892007",
+      "@id": "http://irail.be/stations/NMBS/008892007",
+      "name": "Ghent-Sint-Pieters",
+      "standardname": "Gent-Sint-Pieters"
+    },
+    "time": datetime.datetime(2019, 11, 6, 11, 37),
+    "vehicle": "BE.NMBS.IC1510",
+    "platform": "10",
+    "platforminfo": {
+      "name": "10",
+      "normal": "1"
+    },
+    "canceled": "0",
+    "departureConnection": "http://irail.be/connections/8892007/20191106/IC1510",
+    "direction": {
+      "name": "Genk"
+    },
+    "left": "1",
+    "walking": "0",
+    "occupancy": {
+      "@id": "http://api.irail.be/terms/unknown",
+      "name": "unknown"
+    }
+  },
+  "arrival": {
+    "delay": "540",
+    "station": "Dilbeek",
+    "stationinfo": {
+      "locationX": "4.243393",
+      "locationY": "50.866728",
+      "id": "BE.NMBS.008812237",
+      "@id": "http://irail.be/stations/NMBS/008812237",
+      "standardname": "Dilbeek",
+      "name": "Dilbeek"
+    },
+    "time": datetime.datetime(2019, 11, 6, 12, 55),
+    "vehicle": "BE.NMBS.S42162",
+    "platform": "1",
+    "platforminfo": {
+      "name": "1",
+      "normal": "1"
+    },
+    "canceled": "0",
+    "direction": {
+      "name": "Alost / Aalst"
+    },
+    "arrived": "0",
+    "walking": "0"
+  },
+  "duration": "4680",
+  "vias": {
+    "number": "2",
+    "via": [
+      {
+        "id": "0",
+        "arrival": {
+          "time": datetime.datetime(2019,
+          11,
+          6,
+          12,
+          7),
+          "platform": "11",
+          "platforminfo": {
+            "name": "11",
+            "normal": "1"
+          },
+          "isExtraStop": "0",
+          "delay": "0",
+          "canceled": "0",
+          "arrived": "1",
+          "walking": "0",
+          "direction": {
+            "name": "Genk"
+          },
+          "vehicle": "BE.NMBS.IC1510",
+          "departureConnection": "http://irail.be/connections/8814001/20191106/IC1510"
+        },
+        "departure": {
+          "time": datetime.datetime(2019,
+          11,
+          6,
+          12,
+          18),
+          "platform": "7",
+          "platforminfo": {
+            "name": "7",
+            "normal": "1"
+          },
+          "isExtraStop": "0",
+          "delay": "0",
+          "canceled": "0",
+          "left": "1",
+          "walking": "0",
+          "direction": {
+            "name": "Saint-Nicolas / Sint-Niklaas"
+          },
+          "vehicle": "BE.NMBS.IC3210",
+          "departureConnection": "http://irail.be/connections/8814001/20191106/IC3210",
+          "occupancy": {
+            "@id": "http://api.irail.be/terms/unknown",
+            "name": "unknown"
+          }
+        },
+        "timeBetween": "660",
+        "station": "Brussels-South/Brussels-Midi",
+        "stationinfo": {
+          "locationX": "4.336531",
+          "locationY": "50.835707",
+          "id": "BE.NMBS.008814001",
+          "@id": "http://irail.be/stations/NMBS/008814001",
+          "name": "Brussels-South/Brussels-Midi",
+          "standardname": "Brussel-Zuid/Bruxelles-Midi"
+        },
+        "vehicle": "BE.NMBS.IC1510",
+        "direction": {
+          "name": "Genk"
+        }
+      },
+      {
+        "id": "1",
+        "arrival": {
+          "time": datetime.datetime(2019,
+          11,
+          6,
+          12,
+          35),
+          "platform": "3",
+          "platforminfo": {
+            "name": "3",
+            "normal": "1"
+          },
+          "isExtraStop": "0",
+          "delay": "0",
+          "canceled": "0",
+          "arrived": "1",
+          "walking": "0",
+          "direction": {
+            "name": "Saint-Nicolas / Sint-Niklaas"
+          },
+          "vehicle": "BE.NMBS.IC3210",
+          "departureConnection": "http://irail.be/connections/8812047/20191106/IC3210"
+        },
+        "departure": {
+          "time": datetime.datetime(2019,
+          11,
+          6,
+          12,
+          48),
+          "platform": "1",
+          "platforminfo": {
+            "name": "1",
+            "normal": "1"
+          },
+          "isExtraStop": "0",
+          "delay": "600",
+          "canceled": "0",
+          "left": "1",
+          "walking": "0",
+          "direction": {
+            "name": "Alost / Aalst"
+          },
+          "vehicle": "BE.NMBS.S42162",
+          "departureConnection": "http://irail.be/connections/8812047/20191106/S42162",
+          "occupancy": {
+            "@id": "http://api.irail.be/terms/unknown",
+            "name": "unknown"
+          }
+        },
+        "timeBetween": "780",
+        "station": "Jette",
+        "stationinfo": {
+          "locationX": "4.32622",
+          "locationY": "50.880833",
+          "id": "BE.NMBS.008812047",
+          "@id": "http://irail.be/stations/NMBS/008812047",
+          "standardname": "Jette",
+          "name": "Jette"
+        },
+        "vehicle": "BE.NMBS.IC3210",
+        "direction": {
+          "name": "Saint-Nicolas / Sint-Niklaas"
+        }
+      }
+    ]
+  },
+  "occupancy": {
+    "@id": "http://api.irail.be/terms/unknown",
+    "name": "unknown"
+  }
+}
