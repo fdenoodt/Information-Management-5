@@ -1,49 +1,60 @@
 import requests
-
+import time
+from api import Api
 
 class HueLight:
     def __init__(self, id):
-        self.id = id
-        self.active = False
-        self.brightness = 0
-        # self.r = 0
-        # self.g = 0
-        # self.b = 0
-        self.sat = 0
-        self.hue = 0
-        self.user = "newdeveloper"
+      self.api = Api()
+      self.id = id
+      self.active = False
+      self.brightness = 0
+      self.sat = 0
+      self.hue = 0
+      self.user = "newdeveloper"
+      self.flash = False
 
-    def startAlarm(self, ip):
-        self.active = True
+    def create_user(self,ip):
+      url='http://'+ip+'/api'
+      body='{"devicetype": "smart_alarm_app#client"}'
+      headers = {"Content-Type": "application/json"}
+      response = self.api.post(url,body,headers)
+      self.user = response["success"]["username"]
+
+
+    def start_alarm(self, ip):
+      self.active = True
+      self.brightness=1
+      while self.brightness<60:
+        self.brightness+=1
         self.sendRequest(ip)
+        time.sleep(5)
+      self.flash()
 
-        # vb voor kleuren
-        # if(color == 'green'):
-        #     self.sat = '0'
-        #     self.hue = '25535'
-        # elif(color == 'orange'):
-        #     self.sat = '250'
-        #     self.hue = '25535'
-        # else:
-        #     self.sat = '254'
-        #     self.hue = '10'
+    def flash(self):
+      self.brightness=75
+      self.flash=True
+      #moet actief blijven to stop_alarm geroepen wordt
+      while self.flash:
+        self.active=False
+        self.send_request(self.ip)
+        time.sleep(2)
+        self.active=True
+        self.send_request(self.ip)
+        time.sleep(2)
 
-    def stopAlarm(self, ip):
-        self.active = False
-        self.sendRequest(ip)
+    def stop_alarm(self, ip):
+      self.flash= False
+      self.active = False
+      self.sendRequest(ip)
 
-    def sendRequest(self, ip):
-        url = 'http://'+ip+'/api/'+self.user+'/lights/' + str(self.id)+'/state'
-        data = '{ "on": '+str(self.active)+',"sat":'+str(self.sat) + \
-            ', "bri":'+str(self.brightness)+',"hue":'+str(self.hue)+'}'
-        headers = {"Content-Type": "application/json"}
+    def send_request(self, ip):
+      url = 'http://'+ip+'/api/'+self.user+'/lights/' + str(self.id)+'/state'
+      data = '{ "on": '+str(self.active)+',"sat":'+str(self.sat) + \
+          ', "bri":'+str(self.brightness)+',"hue":'+str(self.hue)+'}'
+      headers = {"Content-Type": "application/json"}
 
-        # we gebruiken de api klasse niet aangezien we hier ook headers moeten meegeven
-        response = requests.put(url, data=data, headers=headers)
-        res = response.json()
-        print(res)
-        return res
-
-
-a = HueLight(1)
-a.sendRequest("10.110.161.202:8000")
+      # we gebruiken de api klasse niet aangezien we hier ook headers moeten meegeven
+      response = requests.put(url, data=data, headers=headers)
+      res = response.json()
+      print(res)
+      return res

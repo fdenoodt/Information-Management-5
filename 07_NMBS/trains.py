@@ -1,7 +1,6 @@
 from api import Api
 from datetime import datetime, timedelta
 
-
 class TrainApi:
     def __init__(self):
         self.api = Api()
