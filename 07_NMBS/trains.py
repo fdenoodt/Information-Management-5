@@ -5,10 +5,10 @@ class TrainApi:
     def __init__(self):
         self.api = Api()
         self.base_url = "https://api.irail.be/"
-        date = None
-        starting_location = None
-        end_location = None
-        arrival_time = None
+        self.date = None
+        self.starting_location = None
+        self.end_location = None
+        self.arrival_time = None
 
     def datetime_plus_seconds(self, time, seconds):
         return time + timedelta(0, int(seconds))
@@ -85,6 +85,10 @@ class TrainApi:
                     return False
 
         return True
+
+    def is_on_time(self,selected_connection,max_possible_delay_departure_time)
+        return (selected_connection['departure']['time']- datetime.now())
+
 
     def verify_delay(self, selected_connection, max_possible_arrival_time_to_arrive_on_time):
         arrival_vehicle_id = selected_connection['arrival']['vehicle']
