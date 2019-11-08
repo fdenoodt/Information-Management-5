@@ -34,7 +34,7 @@ def display_connection(conn):
 
 train_api = TrainApi()
 hue = HueLight(1)
-hue.create_user(ip)
+# hue.create_user("10.109.129.229")
 # 1 ask for the data (nu gebruiken we test data)
 # indien de verwachte trein te laat is en er geen vroegere is dan wil je misschien een latere trein dan je gewilde arrival_time. (geeft ons de optie om een latere trein te kunnen kiezen)
 max_later = 0  # in min
@@ -75,8 +75,9 @@ print("\n")
 print("Selected route:")
 display_connection(selected_connection)
 
+is_time_to_wake_up = False
 # 4
-while is_time:
+while not is_time_to_wake_up:
     try:
         print("Verifying connection...")
         is_on_time = train_api.verify_delay(
@@ -92,16 +93,16 @@ while is_time:
 
             print("A new route/connection has been selected:")
             display_connection(selected_connection)
-        is_time=
+        
+        is_time_to_wake_up = train_api.must_wake_up(selected_connection, 10)
+        if is_time_to_wake_up:
+            hue.start_alarm("10.109.129.229:8000")
+            input()
+            hue.stop_alarm("10.109.129.229:8000")
+
 
         time.sleep(10)
+   
     except:
         print("Oops something went wrong.")
 
-hue.start_alarm()
-
-input()
-
-hue.stop_alarm()
-
-    print("\n")

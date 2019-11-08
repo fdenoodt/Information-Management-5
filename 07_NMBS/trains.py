@@ -86,8 +86,10 @@ class TrainApi:
 
         return True
 
-    def is_on_time(self,selected_connection,max_possible_delay_departure_time)
-        return (selected_connection['departure']['time']- datetime.now())
+    def must_wake_up(self,selected_connection,minutes_in_advance_alarms_go_off):
+        time_wake_up = selected_connection['departure']['time'] - timedelta(0, int(minutes_in_advance_alarms_go_off*60))
+        curr_time = datetime.now()
+        return curr_time >  time_wake_up
 
 
     def verify_delay(self, selected_connection, max_possible_arrival_time_to_arrive_on_time):
